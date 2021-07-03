@@ -5,13 +5,17 @@ int main (int argc, char *argv[])
 {
 	int fd;
 	
+	wiringPiSetup();
+	
 	/*BH1750*/		
     fd=wiringPiI2CSetup(BH1750_ADDR);
 	
 	wiringPiI2CWrite(fd,0x10);
+	sleep(1);
+	
 	printf("[{\"type\": \"Intensity\",\"value\": %d, \"unit\":\"Lux\"},",read_lux(fd));
 	
-	wiringPiSetup();
+	
 
 
 	/*BMP280*/
