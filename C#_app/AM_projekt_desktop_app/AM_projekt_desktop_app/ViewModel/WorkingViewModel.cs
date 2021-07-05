@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using AM_projekt_desktop_app.Commands;
 using AM_projekt_desktop_app.Model;
 using OxyPlot;
@@ -27,10 +28,102 @@ namespace AM_projekt_desktop_app.ViewModel
         public ButtonCommand StartBtn { get; set; }
         public ButtonCommand StopBtn { get; set; }
         public ButtonCommand ClearBtn { get; set; }
+        public ButtonCommand SendBtn { get; set; }
+
+        private Action setSendHandler;
+
+        public int[] tab_screen = new int[3];
 
         public double i = 0;
 
         System.Windows.Threading.DispatcherTimer disTim;
+
+        public WorkingViewModel()
+        {
+            ipAddress = config.IpAddress;
+            sampleTime = config.SampleTime;
+
+            StartBtn = new ButtonCommand(StartTimer);
+            StopBtn = new ButtonCommand(StopTimer);
+            ClearBtn = new ButtonCommand(ClearCharts);
+            SendBtn = new ButtonCommand(SendScreen);
+
+            Plot1 = new PlotModel { Title = "Temperature" };
+
+            Plot1.Axes.Add(new LinearAxis()
+            {
+                Position = AxisPosition.Bottom,
+                Minimum = 0,
+                Maximum = config.XAxisMax,
+                Key = "Horizontal",
+                Unit = "sec",
+                Title = "Time"
+            });
+            Plot1.Axes.Add(new LinearAxis()
+            {
+                Position = AxisPosition.Left,
+                Minimum = -1,
+                Maximum = 11,
+                Key = "Vertical",
+                Unit = "C",
+                Title = "Temp"
+            });
+            Plot1.Series.Add(new LineSeries() { Title = "temperature", Color = OxyColor.Parse("#FFF18F01") });
+
+            Plot2 = new PlotModel { Title = "Pressure" };
+
+            Plot2.Axes.Add(new LinearAxis()
+            {
+                Position = AxisPosition.Bottom,
+                Minimum = 0,
+                Maximum = config.XAxisMax,
+                Key = "Horizontal",
+                Unit = "sec",
+                Title = "Time"
+            });
+            Plot2.Axes.Add(new LinearAxis()
+            {
+                Position = AxisPosition.Left,
+                Minimum = 975,
+                Maximum = 1050,
+                Key = "Vertical",
+                Unit = "hPa",
+                Title = "Pres"
+            });
+            Plot2.Series.Add(new LineSeries() { Title = "pressure", Color = OxyColor.Parse("#FFDDD92A") });
+
+            Plot3 = new PlotModel { Title = "Intensity" };
+
+            Plot3.Axes.Add(new LinearAxis()
+            {
+                Position = AxisPosition.Bottom,
+                Minimum = 0,
+                Maximum = config.XAxisMax,
+                Key = "Horizontal",
+                Unit = "sec",
+                Title = "Time"
+            });
+            Plot3.Axes.Add(new LinearAxis()
+            {
+                Position = AxisPosition.Left,
+                Minimum = 0,
+                Maximum = 100,
+                Key = "Vertical",
+                Unit = "lux",
+                Title = "Intensity"
+            });
+            Plot3.Series.Add(new LineSeries() { Title = "light", Color = OxyColor.Parse("#FFE2C044") });
+        }
+
+        public void SetSLed(Action handler)
+        {
+            setSendHandler = handler;
+        }
+
+        private void SendScreen()
+        {
+            setSendHandler();
+        }
 
         private void UpdatePlot(double t, double d, PlotModel Plot_n)
         {
@@ -112,81 +205,7 @@ namespace AM_projekt_desktop_app.ViewModel
             Plot3.InvalidatePlot(true);
         }
 
-        public WorkingViewModel()
-        {
-            ipAddress = config.IpAddress;
-            sampleTime = config.SampleTime;
-
-            StartBtn = new ButtonCommand(StartTimer);
-            StopBtn = new ButtonCommand(StopTimer);
-            ClearBtn = new ButtonCommand(ClearCharts);
-
-            Plot1 = new PlotModel { Title = "Temperature" };
-
-            Plot1.Axes.Add(new LinearAxis()
-            {
-                Position = AxisPosition.Bottom,
-                Minimum = 0,
-                Maximum = config.XAxisMax,
-                Key = "Horizontal",
-                Unit = "sec",
-                Title = "Time"
-            });
-            Plot1.Axes.Add(new LinearAxis()
-            {
-                Position = AxisPosition.Left,
-                Minimum = -1,
-                Maximum = 11,
-                Key = "Vertical",
-                Unit = "C",
-                Title = "Temp"
-            });
-            Plot1.Series.Add(new LineSeries() { Title = "temperature", Color = OxyColor.Parse("#FFF18F01") });
-
-            Plot2 = new PlotModel { Title = "Pressure" };
-
-            Plot2.Axes.Add(new LinearAxis()
-            {
-                Position = AxisPosition.Bottom,
-                Minimum = 0,
-                Maximum = config.XAxisMax,
-                Key = "Horizontal",
-                Unit = "sec",
-                Title = "Time"
-            });
-            Plot2.Axes.Add(new LinearAxis()
-            {
-                Position = AxisPosition.Left,
-                Minimum = 975,
-                Maximum = 1050,
-                Key = "Vertical",
-                Unit = "hPa",
-                Title = "Pres"
-            });
-            Plot2.Series.Add(new LineSeries() { Title = "pressure", Color = OxyColor.Parse("#FFDDD92A") });
-
-            Plot3 = new PlotModel { Title = "Intensity" };
-
-            Plot3.Axes.Add(new LinearAxis()
-            {
-                Position = AxisPosition.Bottom,
-                Minimum = 0,
-                Maximum = config.XAxisMax,
-                Key = "Horizontal",
-                Unit = "sec",
-                Title = "Time"
-            });
-            Plot3.Axes.Add(new LinearAxis()
-            {
-                Position = AxisPosition.Left,
-                Minimum = 0,
-                Maximum = 100,
-                Key = "Vertical",
-                Unit = "lux",
-                Title = "Intensity"
-            });
-            Plot3.Series.Add(new LineSeries() { Title = "light", Color = OxyColor.Parse("#FFE2C044") });
-        }
+     
 
     }
 }

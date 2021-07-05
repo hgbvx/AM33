@@ -1,18 +1,11 @@
 ﻿using AM_projekt_desktop_app.ViewModel;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Windows.Controls;
 
 namespace AM_projekt_desktop_app.View
 {
@@ -21,11 +14,40 @@ namespace AM_projekt_desktop_app.View
     /// </summary>
     public partial class WorkingView : UserControl
     {
+        private readonly WorkingViewModel wvm;
+
+        public bool TempCheck;
+
         public WorkingView()
         {
             InitializeComponent();
 
-            DataContext = new WorkingViewModel();
+            wvm = new WorkingViewModel();
+            wvm.SetSLed(SendScreen);
+
+            DataContext = wvm;
         }
+
+        private void SendScreen()
+        {
+            if (TempCheckBox.IsChecked == (bool?)true)
+            {
+               
+            }
+            if (PresCheckBox.IsChecked == (bool?)true)
+            {
+
+            }
+            if (InteCheckBox.IsChecked == (bool?)true)
+            {
+
+            }
+            if (IPCheckBox.IsChecked == (bool?)true)
+            {
+
+            }
+        }
+
+        
     }
 }
