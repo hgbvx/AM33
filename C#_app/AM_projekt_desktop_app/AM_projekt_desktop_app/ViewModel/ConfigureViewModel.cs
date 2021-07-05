@@ -35,7 +35,7 @@ namespace AM_projekt_desktop_app.ViewModel
             });
 
             string json = JsonConvert.SerializeObject(_data.ToArray());
-            File.WriteAllText(@"C:\Users\Marcin\Desktop\polibuda\Aktualne\semestr 6\AM\lab\IoT_System_Apps\C#_app\AM_projekt_desktop_app\AM_projekt_conf.txt", json); ;
+            File.WriteAllText(config.CONFIG_SAVE, json); ;
         }
 
         public ConfigureViewModel()
