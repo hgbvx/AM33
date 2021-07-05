@@ -1,7 +1,6 @@
 ﻿using AM_projekt_desktop_app.Commands;
 using AM_projekt_desktop_app.Model;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -25,12 +24,14 @@ namespace AM_projekt_desktop_app.ViewModel
             config = new Configure(ipAddress, sampleTime);
             string ip_param = $"{ipAddress}";
             int st_param = sampleTime;
+            string pt_param = portNumber;
+            string api_param = apiNumber;
             List<data> _data = new List<data>();
             _data.Add(new data()
             {
-                Port_data = "25565",
+                Port_data = pt_param,
                 Ip_data = ip_param,
-                API_data = "8.10",
+                API_data = api_param,
                 SampleTime_data = st_param
             });
 

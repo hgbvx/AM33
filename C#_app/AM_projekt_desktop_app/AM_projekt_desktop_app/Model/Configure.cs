@@ -1,6 +1,5 @@
 ﻿using AM_projekt_desktop_app.ViewModel;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -16,6 +15,8 @@ namespace AM_projekt_desktop_app.Model
         public string IpAddress;
         static readonly int sampleTimeDefault = 1000;
         public int SampleTime;
+        public string PortNum;
+        public string APINum;
         public readonly int MaxSampleNumber = 100;
         public double XAxisMax
         {
@@ -34,6 +35,8 @@ namespace AM_projekt_desktop_app.Model
                 List<data> config_data = JsonConvert.DeserializeObject<List<data>>(json);
                 IpAddress = config_data[0].Ip_data;
                 SampleTime = config_data[0].SampleTime_data;
+                PortNum = config_data[0].Port_data;
+                APINum = config_data[0].API_data;
 
             }
         }

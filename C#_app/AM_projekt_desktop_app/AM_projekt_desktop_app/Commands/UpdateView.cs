@@ -1,9 +1,5 @@
 ﻿using AM_projekt_desktop_app.ViewModel;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace AM_projekt_desktop_app.Commands

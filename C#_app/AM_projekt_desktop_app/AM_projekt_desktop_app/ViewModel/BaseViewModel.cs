@@ -1,10 +1,6 @@
 ﻿using AM_projekt_desktop_app.Model;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AM_projekt_desktop_app.ViewModel
 {
@@ -47,6 +43,40 @@ namespace AM_projekt_desktop_app.ViewModel
                 {
                     ipAddress = value;
                     OnPropertyChanged("IpAddress");
+                }
+            }
+        }
+
+        public string portNumber;
+        public string PortNumber
+        {
+            get
+            {
+                return portNumber;
+            }
+            set
+            {
+                if (portNumber != value)
+                {
+                    portNumber = value;
+                    OnPropertyChanged("PortNumber");
+                }
+            }
+        }
+
+        public string apiNumber;
+        public string ApiNumber
+        {
+            get
+            {
+                return apiNumber;
+            }
+            set
+            {
+                if (apiNumber != value)
+                {
+                    apiNumber = value;
+                    OnPropertyChanged("ApiNumber");
                 }
             }
         }
