@@ -1,1 +1,1 @@
-[{"Port_data":"25565","Ip_data":"192.168.0.112","API_data":"8.10","SampleTime_data":100}]
+[{"Port_data":null,"Ip_data":"192.168.0.112","API_data":null,"SampleTime_data":100}]

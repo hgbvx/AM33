@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Net;
+using System.Net.Http;
 
 namespace AM_projekt_desktop_app.Model
 {
@@ -27,6 +28,14 @@ namespace AM_projekt_desktop_app.Model
                 return !string.IsNullOrEmpty(json_data) ? JsonConvert.DeserializeObject<T>(json_data) : new T();
             }
         }
+
+        public void Display_Set(string pass_url)
+        {
+            HttpWebRequest disp_req = (HttpWebRequest)WebRequest.Create(pass_url);
+
+
+        }
+        
 
     }
 }
