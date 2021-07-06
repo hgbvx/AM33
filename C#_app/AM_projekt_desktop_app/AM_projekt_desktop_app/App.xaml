@@ -1,0 +1,15 @@
+﻿<Application x:Class="AM_projekt_desktop_app.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:viewmodel="clr-namespace:AM_projekt_desktop_app.ViewModel"
+             xmlns:view="clr-namespace:AM_projekt_desktop_app.View"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <DataTemplate DataType="{x:Type viewmodel:ConfigureViewModel}">
+            <view:ConfigureView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodel:WorkingViewModel}">
+            <view:WorkingView/>
+        </DataTemplate>
+    </Application.Resources>
+</Application>

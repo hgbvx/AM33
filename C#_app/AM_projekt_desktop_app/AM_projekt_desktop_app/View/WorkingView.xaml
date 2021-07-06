@@ -1,0 +1,96 @@
+﻿<UserControl x:Class="AM_projekt_desktop_app.View.WorkingView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AM_projekt_desktop_app.View"
+             xmlns:oxy="http://oxyplot.org/wpf"
+             mc:Ignorable="d" 
+             d:DesignHeight="750" d:DesignWidth="1000" Background="SkyBlue">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="4*" />
+            <RowDefinition Height="4*" />
+            <RowDefinition Height="4*" />
+            <RowDefinition Height="4*" />
+            <RowDefinition Height="4*" />
+            <RowDefinition Height="4*" />
+            <RowDefinition Height="4*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.1*"/>
+            <ColumnDefinition Width="0.05*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="0.05*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="0.1*"/>
+        </Grid.ColumnDefinitions>
+
+        <Rectangle Grid.Row="0" Grid.RowSpan="6" Grid.Column="3" Grid.ColumnSpan="2" Width="550" Height="520" Fill="MidnightBlue" HorizontalAlignment="Left" Margin="0,7,0,0"/>
+
+        <!--Chart1-->
+        <oxy:PlotView x:Name="DataPlotView" 
+                      Grid.Row="1" Grid.Column="4" Grid.RowSpan="2"
+                      Model="{Binding Plot1}"/>
+
+        <!--Chart2-->
+        <oxy:PlotView x:Name="DataPlotView2" 
+                      Grid.Row="3" Grid.Column="4" Grid.RowSpan="2"
+                      Model="{Binding Plot2}"/>
+        <!--Chart3-->
+        <oxy:PlotView x:Name="DataPlotView3" 
+                      Grid.Row="5" Grid.Column="4" Grid.RowSpan="2"
+                      Model="{Binding Plot3}"/>
+        <!--Chart_Buttons-->
+        <Button Grid.Row="7" Grid.Column="4" Width="100" Height="50"
+            Margin="-500,10,0,10" Content="START" Command="{Binding StartBtn}"/>
+        <Button Grid.Row="7" Grid.Column="4" Width="100" Height="50"
+            Margin="-200,10,0,10" Content="STOP" Command="{Binding StopBtn}"/>
+        <Button Grid.Row="7" Grid.Column="4" Width="100" Height="50"
+            Margin="100,10,0,10" Content="CLEAR" Command="{Binding ClearBtn}"/>
+
+        <!--List-->
+        <Rectangle Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="2" Width="250" Height="80" Fill="MidnightBlue" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="0,10,0,0"/>
+        <Rectangle Grid.Row="1" Grid.Column="2" Width="250" Height="80" Fill="White" HorizontalAlignment="Left"  VerticalAlignment="Top"/>
+        <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Vertical">
+            <!--Temp-->
+            <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal">
+                <TextBlock 
+            Text="Temperature: "/>
+                <TextBlock 
+            Text="{Binding Temp}" />
+                <TextBlock 
+            Text="C" />
+            </StackPanel>
+            <!--Pres-->
+            <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal">
+                <TextBlock 
+            Text="Pressure: "/>
+                <TextBlock 
+            Text="{Binding Pres}" />
+                <TextBlock 
+            Text="hPa" />
+            </StackPanel>
+            <!--Inte-->
+            <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal">
+                <TextBlock 
+            Text="Intensity: "/>
+                <TextBlock 
+            Text="{Binding Light}" />
+                <TextBlock 
+            Text="Lux" />
+            </StackPanel>
+        </StackPanel>
+        <!--Screen-->
+        <Rectangle Grid.Row="3" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="2" Width="250" Height="80" Fill="MidnightBlue" HorizontalAlignment="Left"  VerticalAlignment="Top"/>
+        <Rectangle Grid.Row="3" Grid.Column="2" Width="250" Height="80" Fill="White" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="0,12,0,0"/>
+        <StackPanel Grid.Row="3" Grid.Column="2" Margin="0,14,0,0" Orientation="Vertical">
+            <CheckBox Content="Temperature" x:Name="TempCheckBox"/>
+            <CheckBox Content="Pressure" x:Name="PresCheckBox"/>
+            <CheckBox Content="Intensity" x:Name="InteCheckBox"/>
+            <CheckBox Content="IP" x:Name="IPCheckBox"/>
+        </StackPanel>
+        <Button Grid.Row="4" Grid.Column="2" Width="100" Height="50" HorizontalAlignment="Left" Content="SEND" Command="{Binding SendBtn}"/>
+    </Grid>
+</UserControl>
