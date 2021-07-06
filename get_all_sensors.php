@@ -2,10 +2,10 @@
 	header("Content-Type: application/json");
 	
 
+chdir("/home/pi/Documents/Projekt");
+$myfile = fopen("data.txt", "r") or die("Unable to open file!");
+echo fread($myfile,filesize("data.txt"));
+fclose($myfile);
 
-	$cmd = 'sudo python3 /home/pi/Documents/Projekt/both_json.py';
-
-	$res = shell_exec($cmd);
 	
-	echo $res;
 ?>
