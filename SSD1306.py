@@ -1,3 +1,4 @@
+#!/usr/bin/python
 import time
 import subprocess
 
@@ -6,6 +7,7 @@ import busio
 from PIL import Image, ImageDraw, ImageFont
 import adafruit_ssd1306
 import json
+
 
 i2c = busio.I2C(SCL, SDA)
 
@@ -26,8 +28,12 @@ bottom = height - padding
 x = 0
 font = ImageFont.load_default()
 
-while True:
 
+while True:
+    
+    f = open("display.txt","r")
+    Line = f.readline()
+    f.close()
     
     draw.rectangle((0, 0, width, height), outline=0, fill=0)
     
@@ -38,10 +44,14 @@ while True:
     json_string = subprocess.check_output(cmd, shell=True).decode("utf-8")
     string = json.loads(json_string)
 
-    draw.text((x, top + 0), "Temperatura: " + str(string[1]["value"]), font=font, fill=255)
-    draw.text((x, top + 8), "Cisnienie: " + str(string[2]["value"]), font=font, fill=255)
-    draw.text((x, top + 16), "Naswietlenie: " + str(string[0]["value"]), font=font, fill=255)
-    draw.text((x, top + 25), "IP: " + IP, font=font, fill=255)
+    if (Line.find('t') != -1):
+        draw.text((x, top + 0), "Temperatura: " + str(string[1]["value"]), font=font, fill=255)
+    if (Line.find('p') != -1):
+        draw.text((x, top + 8), "Cisnienie: " + str(string[2]["value"]), font=font, fill=255)
+    if (Line.find('l') != -1):
+        draw.text((x, top + 16), "Naswietlenie: " + str(string[0]["value"]), font=font, fill=255)
+    if (Line.find('i') != -1):
+        draw.text((x, top + 25), "IP: " + IP, font=font, fill=255)
 
     disp.image(image)
     disp.show()
