@@ -1,0 +1,61 @@
+body, html {
+    height: 100%;
+    background-color: black;
+    
+  }
+  
+
+  .lefttoppane {
+    width: 30%;
+    height: 50%;
+    float: left;
+    background-color: rosybrown;
+  }
+  
+  .leftbotpane {
+    position: absolute;
+    bottom: 0;
+    width: 30%;
+    height: 50%;
+    float: right;
+    background-color: royalblue;
+  }
+  
+  .rightpane {
+    width: 70%;
+    height: 100%;
+    position: relative;
+    float: right;
+    background-color: yellow;
+  }
+
+  .chartcontainer {
+	width: 80%;
+	height: 30%;
+    margin-top: 10%;
+
+}
+
+.chartcontainer1 {
+	width: 80%;
+	height: 30%;
+    margin-top: 0;
+}
+
+.datagrabber {
+  margin-top: 10px;
+	width: 1000px;
+	padding-top: 5px;
+	padding-right: 5px;
+	padding-bottom: 5px;
+	padding-left: 5px;
+}
+
+.listgrabber {
+  margin-top: 10px;
+	width: 1000px;
+	padding-top: 5px;
+	padding-right: 5px;
+	padding-bottom: 5px;
+	padding-left: 5px;
+}
