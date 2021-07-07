@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+	<!-- HTML file head: web page metadata -->
+	<head>
+		<title>HTML/JavaScript/CSS (Boostrap) examples</title>
+		<!-- jQuery -->
+		<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+		
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+		
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+		
+		<!-- Chart.js library -->
+		<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+		
+		<script type="text/javascript" src="js/menudev.js"></script> 
+		<link rel="stylesheet" type="text/css" href="styles/menudev.css">
+	</head>
+
+	<!-- HTML file body: web page content -->
+    <div>
+        <form action="config.php">
+          <label for="port">Port</label>
+          <input type="text" id="port" name="port" >
+      
+          <label for="api">Version of API</label>
+          <input type="text" id="api" name="api">
+
+          <label for="sampling">Sampling Period</label>
+          <input type="text" id="sampling" name="sampling">
+
+          <label for="samples">Max nr of samples</label>
+          <input type="text" id="samples" name="samples">
+        
+          <input type="submit" value="Submit">
+        </form>
+      </div>
+	</body>
+
+</html>
