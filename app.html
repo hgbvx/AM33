@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+	<!-- HTML file head: web page metadata -->
+	<head>
+		<title>HTML/JavaScript examples</title>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+		<!-- Chart.js library -->
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+		
+		<script type="text/javascript" src="js/app.js"></script>
+        <link rel="stylesheet" type="text/css" href="styles/app.css">
+
+	</head>
+
+	<!-- HTML file body: web page content -->
+	<body>
+	
+            <div class="lefttoppane">
+                <h1>Aktualne wartosci</h1>
+                <div class="container border border-primary rounded listgrabber">
+                    <p id="tmp_text">Temper</p>
+                    <p id="prs_text">PRESERE</p>
+                    <p id="lux_text">LUXITO</p>
+                </div>
+
+
+            </div>
+            
+            <div class="leftbotpane"><h1>Display
+            </h1>
+                <div class="container border border-primary rounded listgrabber">
+                    <div>
+                       <input type="checkbox" id="tempC" name="tempC"checked>
+                        <label for="tempC">Temperatura</label>
+                    </div> 
+                    <div>
+                        <input type="checkbox" id="pressC" name="pressC"checked>
+                         <label for="pressC">Cisnienie</label>
+                     </div> 
+                     <div>
+                        <input type="checkbox" id="luxC" name="luxC"checked>
+                         <label for="luxC">Naswietlenie</label>
+                     </div>
+                     <div>
+                        <input type="checkbox" id="ipC" name="ipC"checked>
+                         <label for="ipC">Adres IP</label>
+                     </div>
+                        <button style="background-color: cornflowerblue;" id="send" type="button" class="btn btn-primary menuitem">Send</button>
+                        <p id="test">PRESERE</p>
+                     <div>
+
+                     </div>  
+                </div>
+
+            </div>
+            <div class="rightpane">
+                <div id="datagrabber" class="container border border-primary rounded datagrabber">
+                    <ul class="nav">
+                        <li><button style="background-color: cornflowerblue;" id="start" type="button" class="btn btn-primary menuitem">Start</button></li>
+                        <li><button style="background-color: cornflowerblue;" id="stop" type="button" class="btn btn-primary menuitem">Stop</button></li>
+                        <li><div class="border border-primary rounded menuitem"><span>Sample time: <span id="sampletime"></span> ms</span></div></li>  
+                    </ul>
+                    <div class="chartcontainer">
+                        <canvas id="chart"></canvas>
+                    </div>
+                    <div class="chartcontainer">
+                        <canvas id="chart1"></canvas>
+                    </div>
+                    <div class="chartcontainer">
+                        <canvas id="chart2"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+	</body>
+
+</html>
+	
+	</body>
+
+</html>

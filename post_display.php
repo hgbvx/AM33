@@ -1,15 +1,15 @@
 <?php 
 
-	if(isset($_GET["arg1"]))
+	if(isset($_GET["arg1"]) && $_GET["arg1"] != NULL)
 		$arg1 = ' -' . $_GET["arg1"];
 	
-	if(isset($_GET["arg2"]))
+	if(isset($_GET["arg2"]) && $_GET["arg2"] != NULL)
 		$arg2 = ' -' . $_GET["arg2"];
 		
-	if(isset($_GET["arg3"]))
+	if(isset($_GET["arg3"]) && $_GET["arg3"] != NULL)
 		$arg3 = ' -' . $_GET["arg3"];
 		
-	if(isset($_GET["arg4"]))
+	if(isset($_GET["arg4"]) && $_GET["arg4"] != NULL)
 		$arg4 = ' -' . $_GET["arg4"];
 	
 	chdir('/home/pi/Documents/Projekt/');
