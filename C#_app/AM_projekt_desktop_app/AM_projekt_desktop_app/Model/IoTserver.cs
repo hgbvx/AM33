@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using AM_projekt_desktop_app.ViewModel;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -20,7 +21,8 @@ namespace AM_projekt_desktop_app.Model
         {
             using (var w = new WebClient())
             {
-                string url = $"http://{ip}/AM_projekt_testmock.php";
+                
+                string url = $"http://{ip}/get_all_sensors.php";
                 var json_data = string.Empty;
                 try
                 {
@@ -29,6 +31,18 @@ namespace AM_projekt_desktop_app.Model
                 catch (Exception) { }
                 return !string.IsNullOrEmpty(json_data) ? JsonConvert.DeserializeObject<T>(json_data) : new T();
             }
+        }
+
+        public List<Measurements> Download()
+        {
+            using (WebClient wc = new WebClient())
+            {
+                string url = $"http://{ip}/get_all_sensors.php";
+                var json = wc.DownloadString(url);
+                List<Measurements> json_mlist = JsonConvert.DeserializeObject<List<Measurements>>(json);
+                return json_mlist;
+            }
+            
         }
 
         public void Display_Set(string pass_url)

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using AM_projekt_desktop_app.Commands;
 using AM_projekt_desktop_app.Model;
@@ -10,9 +11,10 @@ namespace AM_projekt_desktop_app.ViewModel
 {
     public class Measurements
     {
-        public double temperature { get; set; }
-        public double pressure { get; set; }
-        public double light { get; set; }
+        public string type { get; set; }
+        public string unit { get; set; }
+        public double value { get; set; }
+        //public double[][] pobrane = new double[2][];
     }
 
     class WorkingViewModel : BaseViewModel
@@ -146,13 +148,14 @@ namespace AM_projekt_desktop_app.ViewModel
         public void update_data()
         {
             IoTserver update_server = new IoTserver(ipAddress);
-            var measurements = update_server._download_serialized_json_data<Measurements>();
-            this.Temp = measurements.temperature.ToString();
-            this.Pres = measurements.pressure.ToString();
-            this.Light = measurements.light.ToString();
-            UpdatePlot(i, measurements.temperature, Plot1);
-            UpdatePlot(i, measurements.pressure, Plot2);
-            UpdatePlot(i, measurements.light, Plot3);
+            List<Measurements> measurements = update_server.Download();
+            this.Temp = measurements[0].value.ToString();
+            UpdatePlot(i, measurements[0].value, Plot1);
+            this.Pres = measurements[1].value.ToString();
+            UpdatePlot(i, measurements[1].value, Plot2);
+            this.Light = measurements[2].value.ToString();
+            UpdatePlot(i, measurements[2].value, Plot3);
+
             OnPropertyChanged("Temp");
             OnPropertyChanged("Pres");
             OnPropertyChanged("Light");
