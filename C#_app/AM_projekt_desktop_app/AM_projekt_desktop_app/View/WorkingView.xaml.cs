@@ -52,9 +52,9 @@ namespace AM_projekt_desktop_app.View
             {
                 if (String.IsNullOrEmpty(arg1) && String.IsNullOrEmpty(arg2))
                 {
-                    arg3 = "arg3=I";
+                    arg3 = "arg3=l";
                 }
-                else { arg3 = "&arg3=I"; }
+                else { arg3 = "&arg3=l"; }
             }
             if (IPCheckBox.IsChecked == (bool?)true)
             {
@@ -64,7 +64,8 @@ namespace AM_projekt_desktop_app.View
                 }
                 else { arg4 = "&arg4=i"; }
             }
-            string disp_url = $"192.168.0.201/post_display.php/?{arg1}{arg2}{arg3}{arg4}";
+            //string disp_url = $"http://192.168.0.11/post_display.php/?{arg1}{arg2}{arg3}{arg4}";
+            string disp_url = $"post_display.php/?{arg1}{arg2}{arg3}{arg4}";
             iots.Display_Set(disp_url);
 
         }
