@@ -51,6 +51,7 @@ namespace AM_projekt_desktop_app.ViewModel
             SendBtn = new ButtonCommand(SendScreen);
 
             Plot1 = new PlotModel { Title = "Temperature" };
+            Plot1.PlotType = PlotType.XY;
 
             Plot1.Axes.Add(new LinearAxis()
             {
@@ -64,15 +65,17 @@ namespace AM_projekt_desktop_app.ViewModel
             Plot1.Axes.Add(new LinearAxis()
             {
                 Position = AxisPosition.Left,
-                Minimum = -1,
-                Maximum = 11,
+                Minimum = 20,
+                Maximum = 40,
+                MajorStep = 5,
                 Key = "Vertical",
                 Unit = "C",
-                Title = "Temperature"
+                Title = "T"
             });
             Plot1.Series.Add(new LineSeries() { Title = "temperature", Color = OxyColor.Parse("#FFF18F01") });
 
             Plot2 = new PlotModel { Title = "Pressure" };
+            Plot2.PlotType = PlotType.XY;
 
             Plot2.Axes.Add(new LinearAxis()
             {
@@ -88,13 +91,15 @@ namespace AM_projekt_desktop_app.ViewModel
                 Position = AxisPosition.Left,
                 Minimum = 975,
                 Maximum = 1050,
+                MajorStep = 10,
                 Key = "Vertical",
                 Unit = "hPa",
-                Title = "Pressure"
+                Title = "P"
             });
             Plot2.Series.Add(new LineSeries() { Title = "pressure", Color = OxyColor.Parse("#FFDDD92A") });
 
             Plot3 = new PlotModel { Title = "Intensity" };
+            Plot3.PlotType = PlotType.XY;
 
             Plot3.Axes.Add(new LinearAxis()
             {
@@ -109,10 +114,11 @@ namespace AM_projekt_desktop_app.ViewModel
             {
                 Position = AxisPosition.Left,
                 Minimum = 0,
-                Maximum = 100,
+                Maximum = 1500,
+                MajorStep = 300,
                 Key = "Vertical",
                 Unit = "lux",
-                Title = "Intensity"
+                Title = "I"
             });
             Plot3.Series.Add(new LineSeries() { Title = "Intensity", Color = OxyColor.Parse("#FFE2C044") });
         }
