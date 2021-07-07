@@ -15,8 +15,8 @@ namespace AM_projekt_desktop_app.Model
         public string IpAddress;
         static readonly int sampleTimeDefault = 1000;
         public int SampleTime;
-        public string PortNum;
-        public string APINum;
+        public string PortNumber;
+        public string ApiNumber;
         public readonly int MaxSampleNumber = 100;
         public double XAxisMax
         {
@@ -35,8 +35,8 @@ namespace AM_projekt_desktop_app.Model
                 List<data> config_data = JsonConvert.DeserializeObject<List<data>>(json);
                 IpAddress = config_data[0].Ip_data;
                 SampleTime = config_data[0].SampleTime_data;
-                PortNum = config_data[0].Port_data;
-                APINum = config_data[0].API_data;
+                PortNumber = config_data[0].Port_data;
+                ApiNumber = config_data[0].API_data;
 
             }
         }
@@ -45,6 +45,14 @@ namespace AM_projekt_desktop_app.Model
         {
             IpAddress = ip;
             SampleTime = st;
+        }
+
+        public Configure(string ip, int st, string pn, string an)
+        {
+            IpAddress = ip;
+            SampleTime = st;
+            PortNumber = pn;
+            ApiNumber = an;
         }
     }
 }

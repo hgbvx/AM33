@@ -17,22 +17,6 @@ namespace AM_projekt_desktop_app.Model
             ip = _ip;
         }
 
-        public T _download_serialized_json_data<T>() where T : new()
-        {
-            using (var w = new WebClient())
-            {
-                
-                string url = $"http://{ip}/get_all_sensors.php";
-                var json_data = string.Empty;
-                try
-                {
-                    json_data = w.DownloadString(url);
-                }
-                catch (Exception) { }
-                return !string.IsNullOrEmpty(json_data) ? JsonConvert.DeserializeObject<T>(json_data) : new T();
-            }
-        }
-
         public List<Measurements> Download()
         {
             using (WebClient wc = new WebClient())
@@ -52,7 +36,7 @@ namespace AM_projekt_desktop_app.Model
             WebRequest request = WebRequest.Create(final_url);
             request.Proxy = null;
             request.Credentials = CredentialCache.DefaultCredentials;
-            request.Method = "POST";
+            request.Method = "GET";
             WebResponse response = request.GetResponse();
             Console.WriteLine(((HttpWebResponse)response).StatusDescription);
             response.Close();

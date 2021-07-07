@@ -21,7 +21,7 @@ namespace AM_projekt_desktop_app.ViewModel
         public void SaveConfig()
         {
             Server = new IoTserver(IpAddress);
-            config = new Configure(ipAddress, sampleTime);
+            config = new Configure(ipAddress, sampleTime, portNumber, apiNumber);
             string ip_param = $"{ipAddress}";
             int st_param = sampleTime;
             string pt_param = portNumber;
@@ -43,6 +43,8 @@ namespace AM_projekt_desktop_app.ViewModel
         {
             ipAddress = config.IpAddress;
             sampleTime = config.SampleTime;
+            portNumber = config.PortNumber;
+            apiNumber = config.ApiNumber;
             UPCBtn = new ButtonCommand(SaveConfig);
 
         }

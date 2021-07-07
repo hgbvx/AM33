@@ -68,7 +68,7 @@ namespace AM_projekt_desktop_app.ViewModel
                 Maximum = 11,
                 Key = "Vertical",
                 Unit = "C",
-                Title = "Temp"
+                Title = "Temperature"
             });
             Plot1.Series.Add(new LineSeries() { Title = "temperature", Color = OxyColor.Parse("#FFF18F01") });
 
@@ -90,7 +90,7 @@ namespace AM_projekt_desktop_app.ViewModel
                 Maximum = 1050,
                 Key = "Vertical",
                 Unit = "hPa",
-                Title = "Pres"
+                Title = "Pressure"
             });
             Plot2.Series.Add(new LineSeries() { Title = "pressure", Color = OxyColor.Parse("#FFDDD92A") });
 
@@ -114,7 +114,7 @@ namespace AM_projekt_desktop_app.ViewModel
                 Unit = "lux",
                 Title = "Intensity"
             });
-            Plot3.Series.Add(new LineSeries() { Title = "light", Color = OxyColor.Parse("#FFE2C044") });
+            Plot3.Series.Add(new LineSeries() { Title = "Intensity", Color = OxyColor.Parse("#FFE2C044") });
         }
 
         public void SetSLed(Action handler)
