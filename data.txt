@@ -1,1 +1,1 @@
-[{"type": "Temperature", "unit": "C", "value": 35},{"type": "Pressure", "unit": "hPa", "value": 1002},{"type": "Intensity", "unit": "Lux", "value": 760}]
+[{"type": "Temperature", "unit": "C", "value": 35},{"type": "Pressure", "unit": "hPa", "value": 1012},{"type": "Intensity", "unit": "Lux", "value": 560}]
