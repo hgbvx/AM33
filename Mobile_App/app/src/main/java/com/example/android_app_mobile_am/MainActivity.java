@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
     private Switch ip_sw;
 
     private CountDownTimer ct;
+    private CountDownTimer lt;
 
     private RequestQueue queue;
 
@@ -72,6 +73,62 @@ public class MainActivity extends AppCompatActivity {
     private int k=1;
     private long stime_calc;
 
+    public void timer_list_met(){
+        String URL = "http://" + ConfigParams.IP_param + "/get_all_sensors.php";
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest
+                (Request.Method.GET, URL, null, new Response.Listener<JSONArray>() {
+
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        try {
+                            JSONObject temperature = (JSONObject) response.get(0);
+                            String tps = temperature.getString("value");
+                            temp_val.setText(tps);
+
+                            JSONObject pressure = (JSONObject) response.get(1);
+                            String pps = pressure.getString("value");
+                            press_val.setText(pps);
+
+                            JSONObject intensity = (JSONObject) response.get(2);
+                            String inps = intensity.getString("value");
+                            inte_val.setText(inps);
+                        }
+                        catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("MyActivity",String.valueOf(error));
+
+                    }
+                });
+        queue.add(jsonArrayRequest);
+
+        lt.start();
+    }
+
+    public void list_start(){
+        stime_calc = ConfigParams.SampleTime_param;
+        lt = new CountDownTimer(stime_calc,20) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+
+            }
+
+            @Override
+            public void onFinish() {
+                timer_list_met();
+            }
+        }.start();
+    }
+
+    public void list_stop(){
+        lt.cancel();
+    }
 
 
     @Override
@@ -93,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
 
         queue = Volley.newRequestQueue( MainActivity.this);
 
-
+        list_start();
 
         graph_temp = (GraphView)findViewById(R.id.graph_temp);
         temp_series = new LineGraphSeries<>(new DataPoint[]{
@@ -134,10 +191,6 @@ public class MainActivity extends AppCompatActivity {
         graph_inte.getViewport().setMinY(0);
         graph_inte.getViewport().setMaxY(1000);
 
-
-    }
-
-    public void json_array(){
 
     }
 
