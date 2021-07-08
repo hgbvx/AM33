@@ -261,6 +261,16 @@
 
 
             <Button
+                android:id="@+id/clear"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:onClick="reset_graphs"
+                android:text="CLEAR"
+                android:textColor="@android:color/black"
+                app:backgroundTint="#8F8787" />
+
+            <Button
                 android:id="@+id/b_stop"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
@@ -292,9 +302,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_weight="1"
+                android:onClick="config"
                 android:text="configure"
-                app:backgroundTint="#8F8787"
-                android:textColor="@android:color/black"/>
+                android:textColor="@android:color/black"
+                app:backgroundTint="#8F8787" />
         </LinearLayout>
     </LinearLayout>
 

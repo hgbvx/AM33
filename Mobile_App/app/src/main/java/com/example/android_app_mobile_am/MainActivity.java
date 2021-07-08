@@ -2,11 +2,13 @@ package com.example.android_app_mobile_am;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -15,12 +17,15 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -53,13 +58,15 @@ public class MainActivity extends AppCompatActivity {
     private int i=1;
     private int j=1;
     private int k=1;
-    private EditText stime_et;
-    private long stime=1000;
+    private long stime_calc;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         temp_val = (TextView) findViewById(R.id.list_temp);
         press_val = (TextView) findViewById(R.id.list_press);
@@ -72,6 +79,8 @@ public class MainActivity extends AppCompatActivity {
 
         queue = Volley.newRequestQueue( MainActivity.this);
 
+
+
         graph_temp = (GraphView)findViewById(R.id.graph_temp);
         temp_series = new LineGraphSeries<>(new DataPoint[]{
                 new DataPoint(0,0)
@@ -82,8 +91,8 @@ public class MainActivity extends AppCompatActivity {
         graph_temp.getViewport().setMinX(0);
         graph_temp.getViewport().setMaxX(10);
         graph_temp.getViewport().setYAxisBoundsManual(true);
-        graph_temp.getViewport().setMinY(0);
-        graph_temp.getViewport().setMaxY(100);
+        graph_temp.getViewport().setMinY(20);
+        graph_temp.getViewport().setMaxY(40);
 
         graph_pres = (GraphView)findViewById(R.id.graph_press);
         pres_series = new LineGraphSeries<>(new DataPoint[]{
@@ -109,39 +118,54 @@ public class MainActivity extends AppCompatActivity {
         graph_inte.getViewport().setMaxX(10);
         graph_inte.getViewport().setYAxisBoundsManual(true);
         graph_inte.getViewport().setMinY(0);
-        graph_inte.getViewport().setMaxY(100);
+        graph_inte.getViewport().setMaxY(1000);
 
 
     }
 
+    public void json_array(){
+
+    }
+
     public void timer_met(){
-        String URL = "http://192.168.0.11/AM_projekt_testmock.php";
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                (Request.Method.GET, URL, null, new Response.Listener<JSONObject>() {
+        String URL = "http://" + ConfigParams.IP_param + "/get_all_sensors.php";
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest
+                (Request.Method.GET, URL, null, new Response.Listener<JSONArray>() {
 
                     @Override
-                    public void onResponse(JSONObject response) {
-                        String tps = response.optString("temperature");
-                        double tp_read = Double.parseDouble(tps);
-                        DataPoint tp = new DataPoint(i, tp_read);
-                        temp_series.appendData(tp, true, 11);
-                        graph_temp.addSeries(temp_series);
-                        temp_val.setText(tps);
-                        i++;
-                        String pps = response.optString("pressure");
-                        double pp_read = Double.parseDouble(pps);
-                        DataPoint pp = new DataPoint(j, pp_read);
-                        pres_series.appendData(pp, true, 11);
-                        graph_pres.addSeries(pres_series);
-                        press_val.setText(pps);
-                        j++;
-                        String inps = response.optString("light");
-                        double inp_read = Double.parseDouble(inps);
-                        DataPoint inp = new DataPoint(k, inp_read);
-                        inte_series.appendData(inp, true, 11);
-                        graph_inte.addSeries(inte_series);
-                        inte_val.setText(inps);
-                        k++;
+                    public void onResponse(JSONArray response) {
+                        try {
+                            JSONObject temperature = (JSONObject) response.get(0);
+                            String tps = temperature.getString("value");
+                            double tp_read = Double.parseDouble(tps);
+                            DataPoint tp = new DataPoint(i, tp_read);
+                            temp_series.appendData(tp, true, 11);
+                            graph_temp.addSeries(temp_series);
+                            temp_val.setText(tps);
+                            i++;
+
+                            JSONObject pressure = (JSONObject) response.get(1);
+                            String pps = pressure.getString("value");
+                            double pp_read = Double.parseDouble(pps);
+                            DataPoint pp = new DataPoint(j, pp_read);
+                            pres_series.appendData(pp, true, 11);
+                            graph_pres.addSeries(pres_series);
+                            press_val.setText(pps);
+                            j++;
+
+                            JSONObject intensity = (JSONObject) response.get(2);
+                            String inps = intensity.getString("value");
+                            double inp_read = Double.parseDouble(inps);
+                            DataPoint inp = new DataPoint(k, inp_read);
+                            inte_series.appendData(inp, true, 11);
+                            graph_inte.addSeries(inte_series);
+                            inte_val.setText(inps);
+                            k++;
+                        }
+                        catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
                     }
                 }, new Response.ErrorListener() {
 
@@ -151,13 +175,14 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 });
-        queue.add(jsonObjectRequest);
+        queue.add(jsonArrayRequest);
 
         ct.start();
     }
 
     public void temp_start(View view){
-        ct = new CountDownTimer(stime,20) {
+        stime_calc = ConfigParams.SampleTime_param;
+        ct = new CountDownTimer(stime_calc,20) {
             @Override
             public void onTick(long millisUntilFinished) {
 
@@ -172,6 +197,22 @@ public class MainActivity extends AppCompatActivity {
 
     public void temp_stop(View view){
         ct.cancel();
+    }
+
+    public void config(View view){
+        startActivity(new Intent(MainActivity.this,ConfigActivity.class));
+    }
+
+    public void reset_graphs(View view){
+        temp_series.resetData(new DataPoint[]{
+                new DataPoint(i,0)
+        });
+        pres_series.resetData(new DataPoint[]{
+                new DataPoint(j,0)
+        });
+        inte_series.resetData(new DataPoint[]{
+                new DataPoint(k,0)
+        });
     }
 
     public void send_screen(View view) {
@@ -200,7 +241,7 @@ public class MainActivity extends AppCompatActivity {
                 arg4 = "&arg4=i";
             }
         }
-        String URL = "http://192.168.0.11/post_display.php/?" + arg1 + arg2 + arg3 + arg4;
+        String URL = "http://" + ConfigParams.IP_param + "/post_display.php/?" + arg1 + arg2 + arg3 + arg4;
         HttpURLConnection urlConnection = null;
         try {
             java.net.URL url = new URL(URL);
