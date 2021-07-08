@@ -2,6 +2,7 @@ package com.example.android_app_mobile_am;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
@@ -32,6 +34,16 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.security.SecureRandom;
+import java.security.cert.X509Certificate;
+import java.text.BreakIterator;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -61,10 +73,12 @@ public class MainActivity extends AppCompatActivity {
     private long stime_calc;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        HttpsTrustManager.allowAllSSL();
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
@@ -171,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        // TODO: Handle error
+                        Log.d("MyActivity",String.valueOf(error));
 
                     }
                 });
@@ -241,19 +255,24 @@ public class MainActivity extends AppCompatActivity {
                 arg4 = "&arg4=i";
             }
         }
+        RequestQueue queue = Volley.newRequestQueue(this);
+
         String URL = "http://" + ConfigParams.IP_param + "/post_display.php/?" + arg1 + arg2 + arg3 + arg4;
-        HttpURLConnection urlConnection = null;
-        try {
-            java.net.URL url = new URL(URL);
-            urlConnection = (HttpURLConnection) url.openConnection();
-        } catch (MalformedURLException ex) {
-            Log.e("httptest", Log.getStackTraceString(ex));
-        } catch (IOException ex) {
-            Log.e("httptest", Log.getStackTraceString(ex));
-        } finally {
-            if (urlConnection != null) {
-                urlConnection.disconnect();
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Display the first 500 characters of the response string.
+                        BreakIterator textView;
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
             }
-        }
+        });
+
+// Add the request to the RequestQueue.
+        queue.add(stringRequest);
     }
 }
